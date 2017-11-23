@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="aaaaa">
+        <attr name="firstColor" format="color"/>
+        <attr name="secondColor" format="color"/>
+        <attr name="circleWidth"  format="dimension"/>
+        <attr name="speed" format="integer"/>
+    </declare-styleable>
+    
+    <declare-styleable name="MeiNv">
+        <attr name="MeiNv_firstColor" format="color" />
+        <attr name="MeiNv_secondColor" format="color" />
+        <attr name="MeiNv_ircleWidth" format="dimension" />
+        <attr name="dotCount" format="integer" />
+        <attr name="splitSize" format="integer" />
+        <attr name="bg" format="reference"></attr>
+    </declare-styleable>
+
+</resources>
