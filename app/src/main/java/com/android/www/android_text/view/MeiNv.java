@@ -50,8 +50,7 @@ public class MeiNv extends View {
     private Bitmap img;
     private Paint paint;
     private Rect rect;
-    private int xDown;
-    private int xUp;
+
 
     public MeiNv(Context context) {
         super(context);
@@ -200,6 +199,9 @@ public class MeiNv extends View {
 
     }
 
+
+    private int yDown,yUp,xDown,xUp;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -207,7 +209,8 @@ public class MeiNv extends View {
 
             case MotionEvent.ACTION_DOWN:
 
-                xDown = (int) event.getY();
+                yDown = (int) event.getY();
+                xDown=(int)event.getX();
 
             break;
 
@@ -216,8 +219,9 @@ public class MeiNv extends View {
             break;
 
             case MotionEvent.ACTION_UP:
-                xUp = (int) event.getY();
-                if (xUp > xDown)// 下滑
+                yUp = (int) event.getY();
+                xUp=(int) event.getX();
+                if (yUp > yDown)// 下滑
                 {
                     down();
                 } else
@@ -237,12 +241,24 @@ public class MeiNv extends View {
      */
     public void up()
     {
-        mCurrentCount++;
+        if (mCurrentCount<=dotCount){
+
+            mCurrentCount++;
+        }
+        /**
+         *刷新控件
+         */
         postInvalidate();
     }
 
    public void down(){
-       mCurrentCount--;
+        if (mCurrentCount>=1){
+
+            mCurrentCount--;
+        }
+       /**
+        *刷新控件
+        */
        postInvalidate();
     }
 }
