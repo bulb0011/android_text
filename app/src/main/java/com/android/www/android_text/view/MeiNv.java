@@ -1,5 +1,6 @@
 package com.android.www.android_text.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -9,6 +10,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -44,7 +47,7 @@ public class MeiNv extends View {
     /**
      * 当前的个数
      */
-    private int mCurrentCount=3;
+    public int mCurrentCount;
 
     private int secondColor;
     private Bitmap img;
@@ -67,7 +70,6 @@ public class MeiNv extends View {
 
 
     void init (Context context, @Nullable AttributeSet attrs){
-
 
         TypedArray a=context.getTheme().obtainStyledAttributes(attrs, R.styleable.MeiNv,0,0);
 
@@ -125,6 +127,8 @@ public class MeiNv extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        setSaveEnabled(true);
 
         paint.setAntiAlias(true); // 消除锯齿
         paint.setStrokeWidth(circleWidth);// 设置圆环的宽度
@@ -260,5 +264,82 @@ public class MeiNv extends View {
         *刷新控件
         */
        postInvalidate();
+    }
+
+//    private int customState;//所谓状态其实就是数据
+
+    @Nullable
+    @Override
+    protected Parcelable onSaveInstanceState() {
+
+        Parcelable parcelable =super.onSaveInstanceState();
+
+        SavedState ss = new SavedState(parcelable);
+
+        ss.CurrentCount= mCurrentCount;
+        return ss;
+    }
+
+
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        super.onRestoreInstanceState(state);
+
+        if (!(state instanceof SavedState)){
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        SavedState savedState =(SavedState)state;
+
+        mCurrentCount = savedState.CurrentCount;
+
+
+    }
+
+    @SuppressLint("ParcelCreator")
+    class  SavedState extends BaseSavedState{
+
+        int CurrentCount;
+
+        public SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        public SavedState(Parcel source) {
+            super(source);
+            CurrentCount = source.readInt();
+        }
+
+
+
+        final Creator<SavedState> CREATOR = new Creator<SavedState>(){
+
+            @Override
+            public SavedState createFromParcel(Parcel source) {
+                return new SavedState(source);
+            }
+
+
+            @Override
+            public SavedState[] newArray(int size) {
+
+                return new SavedState[size];
+            }
+        };
+
+
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+
+            out.writeInt(CurrentCount);
+        }
+
+
+
+
     }
 }

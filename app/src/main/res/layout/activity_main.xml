@@ -77,7 +77,7 @@
     <com.android.www.android_text.view.MeiNv
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_below="@id/bbbb"
+        android:layout_above="@+id/yuan"
         meinv:MeiNv_firstColor="@android:color/holo_blue_light"
         meinv:MeiNv_secondColor="@android:color/holo_green_dark"
         meinv:MeiNv_ircleWidth="30px"
